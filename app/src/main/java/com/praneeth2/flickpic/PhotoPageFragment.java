@@ -1,9 +1,7 @@
 package com.praneeth2.flickpic;
 
-import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +10,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+
+import com.bignerdranch.android.photogallery.R;
 
 public class PhotoPageFragment extends VisibleFragment {
     private static final String ARG_URI = "photo_page_url";

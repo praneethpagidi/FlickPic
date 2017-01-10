@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -19,8 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bignerdranch.android.photogallery.R;
+
+
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class PhotoGalleryFragment extends VisibleFragment {
     private static final String TAG = "PhotoGalleryFragment";
@@ -36,6 +42,7 @@ public class PhotoGalleryFragment extends VisibleFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setRetainInstance(true);
         setHasOptionsMenu(true);
 
@@ -89,31 +96,24 @@ public class PhotoGalleryFragment extends VisibleFragment {
         menuInflater.inflate(R.menu.fragment_photo_gallery, menu);
 
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
-        final SearchView searchView = (SearchView) searchItem.getActionView();
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String s) {
-                    Log.d(TAG, "QueryTextSubmit: " + s);
-                    QueryPreferences.setStoredQuery(getActivity(), s);
-                    updateItems();
-                    return true;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String s) {
-                    Log.d(TAG, "QueryTextChange: " + s);
-                    return false;
-                }
-            });
-
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View v) {
-                String query = QueryPreferences.getStoredQuery(getActivity());
-                searchView.setQuery(query, false);
+            public boolean onQueryTextSubmit(String s) {
+                Log.d(TAG, "QueryTextSubmit: " + s);
+                QueryPreferences.setStoredQuery(getActivity(), s);
+                updateItems();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                Log.d(TAG, "QueryTextChange: " + s);
+                return false;
             }
         });
+
 
         MenuItem toggleItem = menu.findItem(R.id.menu_item_toggle_polling);
         if (PollService.isServiceAlarmOn(getActivity())) {
@@ -122,6 +122,8 @@ public class PhotoGalleryFragment extends VisibleFragment {
             toggleItem.setTitle(R.string.start_polling);
         }
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

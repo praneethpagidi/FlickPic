@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.praneeth2.flickpic">
+    package="com.bignerdranch.android.photogallery" >
+
+    <permission android:name="com.praneeth2.flickpic.PRIVATE"
+                android:protectionLevel="signature" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".PhotoGalleryActivity"
+            android:name="com.praneeth2.flickpic.PhotoGalleryActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,18 +26,18 @@
         </activity>
 
         <activity
-            android:name=".PhotoPageActivity"
+            android:name="com.praneeth2.flickpic.PhotoPageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
 
-        <service android:name=".PollService" />
+        <service android:name="com.praneeth2.flickpic.PollService" />
 
-        <receiver android:name=".StartupReceiver" >
+        <receiver android:name="com.praneeth2.flickpic.StartupReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".NotificationReceiver"
+        <receiver android:name="com.praneeth2.flickpic.NotificationReceiver"
                   android:exported="false">
             <intent-filter
                 android:priority="-999">
